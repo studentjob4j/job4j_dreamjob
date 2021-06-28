@@ -20,14 +20,18 @@ import java.time.LocalDate;
 @WebServlet(name = "PostServlet", value = "/PostServlet")
 public class PostServlet extends HttpServlet {
 
-
         @Override
         protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
             request.setCharacterEncoding("UTF-8");
             Store.instOf().save(new Post(request.getParameter("name"),
-                            Integer.valueOf(request.getParameter("id")), null, LocalDate.now()));
-            response.sendRedirect(request.getContextPath() + "/posts.jsp");
+                            Integer.valueOf(request.getParameter("id")), request.getParameter("desc"), LocalDate.now()));
+            response.sendRedirect(request.getContextPath() + "/posts.do");
         }
 
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setAttribute("posts", Store.instOf().findAllPosts());
+        req.getRequestDispatcher("posts.jsp").forward(req, resp);
+    }
 
 }

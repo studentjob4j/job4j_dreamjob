@@ -18,6 +18,12 @@ public class CandidateServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         Store.instOf().saveCandidate(new Candidate(Integer.valueOf(request.getParameter("id")),
                 request.getParameter("name")));
-        response.sendRedirect(request.getContextPath() + "/candidates.jsp");
+        response.sendRedirect(request.getContextPath() + "/candidates.do");
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setAttribute("candidates", Store.instOf().findAllCandidates());
+        req.getRequestDispatcher("candidates.jsp").forward(req, resp);
     }
 }

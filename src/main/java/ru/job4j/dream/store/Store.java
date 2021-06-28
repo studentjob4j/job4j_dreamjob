@@ -23,12 +23,12 @@ public class Store {
     private final Map<Integer, Candidate> candidates = new ConcurrentHashMap<>();
 
     private Store() {
-        posts.put(1, new Post("John",1, "Junior Java Job", LocalDate.now()));
-        posts.put(2, new Post("Stiven",2, "Middle Java Job", LocalDate.now()));
-        posts.put(3, new Post("Max", 3, "Senior Java Job", LocalDate.now()));
-        candidates.put(1, new Candidate(1, "Junior Java"));
-        candidates.put(2, new Candidate(2, "Middle java"));
-        candidates.put(3, new Candidate(3, "Senior Java"));
+        posts.put(1, new Post("Programmer",1, "Junior Java Dev", LocalDate.now()));
+        posts.put(2, new Post("Programmer",2, "Middle Java Dev", LocalDate.now()));
+        posts.put(3, new Post("Programmer", 3, "Senior Java Dev", LocalDate.now()));
+        candidates.put(1, new Candidate(1, "John"));
+        candidates.put(2, new Candidate(2, "Mike"));
+        candidates.put(3, new Candidate(3, "Sam"));
     }
 
     public static Store instOf() {
