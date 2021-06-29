@@ -8,6 +8,8 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ page import="ru.job4j.dream.model.Post" %>
 <%@ page import="java.util.Collection" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page isELIgnored="false" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -44,19 +46,19 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <% for (Post post : (Collection<Post>) request.getAttribute("posts")) { %>
-                    <tr>
-                        <td>
-                            <a href="<%=request.getContextPath()%>/editPost.jsp?id=<%=post.getId()%>">
-                                <i class="fa fa-edit mr-3"></i>
-                            </a>
-                            <%=post.getId()%>
-                            <%=post.getName()%>
-                            <%=post.getDesc()%>
-                            <%=post.getCreate()%>
-                        </td>
-                    </tr>
-                    <% } %>
+                    <c:forEach items="${posts}" var="post">
+                        <tr>
+                            <td>
+                                <a href='<c:url value="/editPost.jsp?id=${post.id}"/>'>
+                                    <i class="fa fa-edit mr-3"></i>
+                                </a>
+                                <c:out value="${post.id}"/>
+                                <c:out value="${post.name}"/>
+                                <c:out value="${post.desc}"/>
+                                <c:out value="${post.create}"/>
+                            </td>
+                        </tr>
+                    </c:forEach>
                     </tbody>
                 </table>
             </div>
