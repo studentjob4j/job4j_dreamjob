@@ -18,6 +18,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 <body>
+<!-- Получаю id из реквеста по ключу -->
 <% String id = request.getParameter("id");%>
 <div class="container">
     <table class="table">

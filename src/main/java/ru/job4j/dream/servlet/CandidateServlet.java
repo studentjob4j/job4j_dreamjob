@@ -11,6 +11,7 @@ import java.io.IOException;
  * @author Shegai Evgenii
  * @since 1.01.2022
  * @version 1.0
+ * Добавляет кандидатов в хранилище и отдает их по запросу
  */
 
 @WebServlet(name = "CandidateServlet", value = "/CandidateServlet")

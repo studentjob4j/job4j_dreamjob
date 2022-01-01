@@ -20,6 +20,7 @@ import java.util.List;
  * @author Shegai Evgenii
  * @since 1.01.2022
  * @version 1.0
+ * Загрузка фото в определенную директорию и чтение по запросу
  * Когда сохраняем файл , то использую путь c:\\images" + File.separator + "image" + req.getParameter("id")
  * например получается следующий путь к папке c:\\images\\image1
  * Чтение также определяю по image + id человека

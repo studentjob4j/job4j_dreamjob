@@ -4,9 +4,7 @@ package ru.job4j.dream.servlet;
  * @author Evgenii Shegai
  * @since 25.06.2021
  * @version 1.0
- * Принцип работы - выводится в браузере файл index.jsp - далее editCandidate.jsp - вводим имя и описание новой заявки
- * - в методе PortServlet создается новая заявка сохраняется в хранилище далее создаем еще один запрос к файлу post.jsp
- * получаем все заявки из хранилища
+ * Создается новая вакансия и отдается клиенту по запросу
  */
 
 import ru.job4j.dream.model.Post;

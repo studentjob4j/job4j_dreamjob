@@ -11,6 +11,7 @@ import java.io.IOException;
  * @author Shegai Evgenii
  * @since 1.01.2022
  * @version 1.0
+ * Удаляет фото из папки с фотографиями определенного кандидата
  */
 
 public class DeleteServlet extends HttpServlet {

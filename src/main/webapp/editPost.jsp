@@ -28,7 +28,9 @@
     <title>Работа мечты</title>
 </head>
 <body>
+<!--Получаем id из реквеста по ключу -->
 <%
+
     String id = request.getParameter("id");
     Post post = new Post("", 0, "", null);
     if (id != null) {

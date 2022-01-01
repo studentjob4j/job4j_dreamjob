@@ -4,6 +4,7 @@ package ru.job4j.dream.store;
  * @author Shegai Evgenii
  * @since 23.06.2021
  * @version 1.0
+ * Хранилище кандидатов и вакансии
  */
 
 import ru.job4j.dream.model.Candidate;
