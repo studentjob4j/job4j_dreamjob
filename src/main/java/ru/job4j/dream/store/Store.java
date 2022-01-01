@@ -8,10 +8,14 @@ package ru.job4j.dream.store;
 
 import ru.job4j.dream.model.Candidate;
 import ru.job4j.dream.model.Post;
+import java.io.File;
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Store {
@@ -21,14 +25,15 @@ public class Store {
     private static final AtomicInteger CAND_ID = new AtomicInteger(3);
     private final Map<Integer, Post> posts = new ConcurrentHashMap<>();
     private final Map<Integer, Candidate> candidates = new ConcurrentHashMap<>();
+    private final Map<Candidate, List<File>> photos = new ConcurrentHashMap<>();
 
     private Store() {
-        posts.put(1, new Post("Programmer",1, "Junior Java Dev", LocalDate.now()));
-        posts.put(2, new Post("Programmer",2, "Middle Java Dev", LocalDate.now()));
-        posts.put(3, new Post("Programmer", 3, "Senior Java Dev", LocalDate.now()));
-        candidates.put(1, new Candidate(1, "John"));
-        candidates.put(2, new Candidate(2, "Mike"));
-        candidates.put(3, new Candidate(3, "Sam"));
+        save(new Post("Programmer",1, "Junior Java Dev", LocalDate.now()));
+        save(new Post("Programmer",2, "Middle Java Dev", LocalDate.now()));
+        save(new Post("Programmer", 3, "Senior Java Dev", LocalDate.now()));
+        save2(new Candidate(1, "John"));
+        save2(new Candidate(2, "Mike"));
+        save2(new Candidate(3, "Sam"));
     }
 
     public static Store instOf() {
@@ -50,18 +55,46 @@ public class Store {
         posts.put(post.getId(), post);
     }
 
-    public Post findById(int id) {
-        return posts.get(id);
-    }
-
-    public void saveCandidate(Candidate candidate) {
+    public void save2(Candidate candidate) {
         if (candidate.getId() == 0) {
             candidate.setId(CAND_ID.incrementAndGet());
         }
         candidates.put(candidate.getId(), candidate);
+        photos.put(candidate, new CopyOnWriteArrayList<>());
+    }
+
+    public Post findById(int id) {
+        if (!posts.containsKey(id)) {
+            throw new NoSuchElementException("Post with id" + id + "not found");
+        }
+        return posts.get(id);
     }
 
     public Candidate findByCandidateId(int id) {
+        if (!candidates.containsKey(id)) {
+            throw new NoSuchElementException("Candidate with id" + id + "not found");
+        }
         return candidates.get(id);
+    }
+
+    public void deleteCandidate(String id) {
+        Candidate candidate = candidates.get(Integer.parseInt(id));
+        if (photos.get(candidate).size() != 0) {
+            List<File> fileList = photos.get(candidate);
+            for (File file : fileList) {
+                file.delete();
+            }
+        }
+        candidates.remove(Integer.parseInt(id));
+    }
+
+    public void addCandidatePhoto(Candidate candidate, File file) {
+        if (!photos.containsKey(candidate)) {
+            List<File> photosList = new CopyOnWriteArrayList<>();
+            photosList.add(file);
+            photos.put(candidate, photosList);
+        } else {
+            photos.get(candidate).add(file);
+        }
     }
 }

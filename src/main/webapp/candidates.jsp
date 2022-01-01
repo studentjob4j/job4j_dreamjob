@@ -43,19 +43,38 @@
         <table class="table">
           <thead>
           <tr>
-            <th scope="col">Названия</th>
+            <th scope="col">Имя кандидата</th>
+            <th scope="col">Действия c кандидатом</th>
+            <th scope="col">Действия с фото кандидата</th>
           </tr>
           </thead>
           <tbody>
-          <c:forEach items="${candidates}" var="candidate">
+          <c:forEach items="${candidates}" var="can">
             <tr>
+
               <td>
-                <a href='<c:url value="/editCandidate.jsp?id=${candidate.id}"/>'>
-                  <i class="fa fa-edit mr-3"></i>
-                </a>
-                <c:out value="${candidate.id}"/>
-                <c:out value="${candidate.name}"/>
+                <!-- Это имя кандидата -->
+                <c:out value="${can.name}"/>
               </td>
+
+              <!-- Это  для редактирования пользователя-->
+              <td>
+                <a href='<c:url value="/editCandidate.jsp?id=${can.id}"/>'>
+                  <i> Редактировать </i>
+                </a>
+                <!-- Это  для удаления пользователя-->
+                <a href='<c:url value="/delete.jsp?id=${can.id}"/>'>
+                  <i> Удалить </i>
+                </a>
+              </td>
+
+              <td>
+                <!-- Это  для редактирования фото-->
+                <a href='<c:url value="/upload?id=${can.id}"/>'>
+                  <i>Загрузка Удаление Скачивание фото</i>
+                </a>
+              </td>
+
             </tr>
           </c:forEach>
           </tbody>

@@ -1,13 +1,14 @@
 <%--
   Created by IntelliJ IDEA.
   User: Evgenii
-  Date: 24.06.2021
-  Time: 11:04
+  Date: 28.12.2021
+  Time: 21:16
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ page import="ru.job4j.dream.store.Store" %>
 <%@ page import="ru.job4j.dream.model.Post" %>
+<%@ page import="ru.job4j.dream.model.Candidate" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -30,37 +31,22 @@
 <body>
 <%
     String id = request.getParameter("id");
-    Post post = new Post("", 0, "", null);
+    String name = null;
     if (id != null) {
-        post = Store.instOf().findById(Integer.parseInt(id));
+        Store store = Store.instOf();
+        name = store.findByCandidateId(Integer.parseInt(id)).getName();
+        store.deleteCandidate(request.getParameter("id"));
     }
 %>
 <div class="container pt-3">
     <div class="row">
         <div class="card" style="width: 100%">
             <div class="card-header">
-                <% if (id == null) { %>
-                Новая вакансия.
-                <% } else { %>
-                Редактирование вакансии.
-                <% } %>
-            </div>
-            <div class="card-body">
-                <form action="<%=request.getContextPath()%>/posts.do?id=<%=post.getId()%>" method="post">
-                    <div class="form-group">
-                        <label for="name">Имя</label>
-                        <input type="text" class="form-control" id="name" name="name" value="<%=post.getName()%>">
-                    </div>
-                    <div class="form-group">
-                        <label for="desc">Описание</label>
-                        <input type="text" class="form-control" id="desc" name="desc" value="<%=post.getDesc()%>">
-                    </div>
-                    <button type="submit" class="btn btn-primary">Сохранить</button>
-                </form>
+                Удаление кандидата c именем <%= name%> произошло успешно.
+                <a class="nav-link" href="<%=request.getContextPath()%>/candidates.do">вернуться к списку кандидатов</a>
             </div>
         </div>
     </div>
 </div>
 </body>
 </html>
-

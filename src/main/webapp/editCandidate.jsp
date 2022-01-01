@@ -33,7 +33,7 @@
     String id = request.getParameter("id");
     Candidate candidate = new Candidate(0, "");
     if (id != null) {
-        candidate = Store.instOf().findByCandidateId(Integer.valueOf(id));
+        candidate = Store.instOf().findByCandidateId(Integer.parseInt(id));
     }
 %>
 <div class="container pt-3">
