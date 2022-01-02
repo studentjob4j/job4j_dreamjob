@@ -16,7 +16,6 @@ import java.io.IOException;
  */
 
 public class DownLoadServlet extends HttpServlet {
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         File users = null;

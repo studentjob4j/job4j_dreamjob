@@ -11,7 +11,6 @@ import java.util.Properties;
  */
 
 public class PropertiesUtil {
-
     public Properties properties() {
         Properties cfg = new Properties();
         try (BufferedReader io = new BufferedReader(

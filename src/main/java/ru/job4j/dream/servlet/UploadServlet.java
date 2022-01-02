@@ -27,11 +27,12 @@ import java.util.List;
  */
 
 public class UploadServlet extends HttpServlet {
+    private final PropertiesUtil ps = new PropertiesUtil();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<String> images = new ArrayList<>();
-        PropertiesUtil ps = new PropertiesUtil();
+
         String folder = ps.properties().getProperty("name") +  File.separator + "image" + req.getParameter("id");
         File folderFile = new File(folder);
         if (!folderFile.exists()) {
@@ -56,7 +57,8 @@ public class UploadServlet extends HttpServlet {
         ServletFileUpload upload = new ServletFileUpload(factory);
         try {
             List<FileItem> items = upload.parseRequest(req);
-            File folder = new File("c:\\images" + File.separator + "image" + req.getParameter("id"));
+            File folder = new File( ps.properties().getProperty("name") +
+                    File.separator + "image" + req.getParameter("id"));
             if (!folder.exists()) {
                 folder.mkdir();
             }
