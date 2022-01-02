@@ -19,16 +19,16 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class Store {
+public class MemStore {
 
-    private static final Store INST = new Store();
+    private static final MemStore INST = new MemStore();
     private static final AtomicInteger POST_ID = new AtomicInteger(3);
     private static final AtomicInteger CAND_ID = new AtomicInteger(3);
     private final Map<Integer, Post> posts = new ConcurrentHashMap<>();
     private final Map<Integer, Candidate> candidates = new ConcurrentHashMap<>();
     private final Map<Candidate, List<File>> photos = new ConcurrentHashMap<>();
 
-    private Store() {
+    private MemStore() {
         save(new Post("Programmer",1, "Junior Java Dev", LocalDate.now()));
         save(new Post("Programmer",2, "Middle Java Dev", LocalDate.now()));
         save(new Post("Programmer", 3, "Senior Java Dev", LocalDate.now()));
@@ -37,7 +37,7 @@ public class Store {
         save2(new Candidate(3, "Sam"));
     }
 
-    public static Store instOf() {
+    public static MemStore instOf() {
         return INST;
     }
 
