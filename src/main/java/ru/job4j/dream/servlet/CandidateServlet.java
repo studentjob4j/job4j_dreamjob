@@ -1,7 +1,7 @@
 package ru.job4j.dream.servlet;
 
 import ru.job4j.dream.model.Candidate;
-import ru.job4j.dream.store.Store;
+import ru.job4j.dream.store.MemStore;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
@@ -22,13 +22,13 @@ public class CandidateServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         Candidate candidate = new Candidate(Integer.parseInt(request.getParameter("id")),
                 request.getParameter("name"));
-        Store.instOf().save2(candidate);
+        MemStore.instOf().save2(candidate);
         response.sendRedirect(request.getContextPath() + "/candidates.do");
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("candidates", Store.instOf().findAllCandidates());
+        req.setAttribute("candidates", MemStore.instOf().findAllCandidates());
         req.getRequestDispatcher("candidates.jsp").forward(req, resp);
     }
 }

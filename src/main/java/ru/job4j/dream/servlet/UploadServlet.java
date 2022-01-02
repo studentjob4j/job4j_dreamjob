@@ -31,7 +31,8 @@ public class UploadServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<String> images = new ArrayList<>();
-        String folder = "c:\\images" + File.separator + "image" + req.getParameter("id");
+        PropertiesUtil ps = new PropertiesUtil();
+        String folder = ps.properties().getProperty("name") +  File.separator + "image" + req.getParameter("id");
         File folderFile = new File(folder);
         if (!folderFile.exists()) {
             folderFile.mkdir();
