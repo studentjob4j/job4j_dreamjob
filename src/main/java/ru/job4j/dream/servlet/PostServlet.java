@@ -21,8 +21,8 @@ public class PostServlet extends HttpServlet {
         @Override
         protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
             request.setCharacterEncoding("UTF-8");
-            Post post = new Post((request.getParameter("name")),
-                    Integer.parseInt(request.getParameter("id")), request.getParameter("desc"), LocalDate.now());
+            Post post = new Post(Integer.parseInt(request.getParameter("id")),
+                    request.getParameter("name") ,request.getParameter("desc"), LocalDate.now());
             MemStore.instOf().save(post);
             response.sendRedirect(request.getContextPath() + "/posts.do");
         }

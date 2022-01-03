@@ -29,9 +29,9 @@ public class MemStore {
     private final Map<Candidate, List<File>> photos = new ConcurrentHashMap<>();
 
     private MemStore() {
-        save(new Post("Programmer",1, "Junior Java Dev", LocalDate.now()));
-        save(new Post("Programmer",2, "Middle Java Dev", LocalDate.now()));
-        save(new Post("Programmer", 3, "Senior Java Dev", LocalDate.now()));
+        save(new Post(1,"Programmer", "Junior Java Dev", LocalDate.now()));
+        save(new Post(2, "Programmer", "Middle Java Dev", LocalDate.now()));
+        save(new Post(3, "Programmer", "Senior Java Dev", LocalDate.now()));
         save2(new Candidate(1, "John"));
         save2(new Candidate(2, "Mike"));
         save2(new Candidate(3, "Sam"));
