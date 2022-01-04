@@ -2,6 +2,7 @@ package ru.job4j.dream.servlet;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.Objects;
 import java.util.Properties;
 
 /**
@@ -11,12 +12,13 @@ import java.util.Properties;
  */
 
 public class PropertiesUtil {
-    public Properties properties() {
+
+    public static Properties properties() {
         Properties cfg = new Properties();
         try (BufferedReader io = new BufferedReader(
                 new InputStreamReader(
-                        PropertiesUtil.class.getClassLoader()
-                                .getResourceAsStream("pathname.properties")
+                        Objects.requireNonNull(PropertiesUtil.class.getClassLoader()
+                                .getResourceAsStream("pathname.properties"))
                 )
         )) {
             cfg.load(io);

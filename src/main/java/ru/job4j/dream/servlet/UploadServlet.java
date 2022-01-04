@@ -15,6 +15,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author Shegai Evgenii
@@ -27,18 +28,18 @@ import java.util.List;
  */
 
 public class UploadServlet extends HttpServlet {
-    private final PropertiesUtil ps = new PropertiesUtil();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<String> images = new ArrayList<>();
 
-        String folder = ps.properties().getProperty("name") +  File.separator + "image" + req.getParameter("id");
+        String folder = PropertiesUtil.properties().getProperty("name") +
+                File.separator + "image" + req.getParameter("id");
         File folderFile = new File(folder);
         if (!folderFile.exists()) {
             folderFile.mkdir();
         }
-        for (File name : new File(folder).listFiles()) {
+        for (File name : Objects.requireNonNull(new File(folder).listFiles())) {
             if (!name.isDirectory()) {
                 images.add(name.getName());
             }
@@ -57,7 +58,7 @@ public class UploadServlet extends HttpServlet {
         ServletFileUpload upload = new ServletFileUpload(factory);
         try {
             List<FileItem> items = upload.parseRequest(req);
-            File folder = new File( ps.properties().getProperty("name") +
+            File folder = new File( PropertiesUtil.properties().getProperty("name") +
                     File.separator + "image" + req.getParameter("id"));
             if (!folder.exists()) {
                 folder.mkdir();

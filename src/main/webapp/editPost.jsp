@@ -32,7 +32,7 @@
 <%
 
     String id = request.getParameter("id");
-    Post post = new Post("", 0, "", null);
+    Post post = new Post(0, "", "", null);
     if (id != null) {
         post = MemStore.instOf().findById(Integer.parseInt(id));
     }

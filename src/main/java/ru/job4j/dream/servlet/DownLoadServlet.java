@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Objects;
 
 /**
  * @author Shegai Evgenii
@@ -20,10 +21,9 @@ public class DownLoadServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         File users = null;
         String name = req.getParameter("name");
-        PropertiesUtil pr = new PropertiesUtil();
-        for (File file : new File(pr.properties().getProperty("name") +
+        for (File file : Objects.requireNonNull(new File(PropertiesUtil.properties().getProperty("name") +
                 File.separator + "image"
-                + req.getParameter("id")).listFiles()) {
+                + req.getParameter("id")).listFiles())) {
             if (name.equals(file.getName())) {
                 users = file;
                 break;
