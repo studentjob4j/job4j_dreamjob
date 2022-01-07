@@ -7,6 +7,8 @@
 --%>
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ page import="ru.job4j.dream.store.MemStore" %>
+<%@ page import="ru.job4j.dream.store.DbStore" %>
+<%@ page import="ru.job4j.dream.store.Store" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -34,9 +36,12 @@
     String id = request.getParameter("id");
     String name = null;
     if (id != null) {
-        MemStore memStore = MemStore.instOf();
+        Store store = DbStore.instOf();
+        name = store.findCandidateById(Integer.parseInt(id)).getName();
+        store.deleteCandidate(request.getParameter("id"));
+       /* MemStore memStore = MemStore.instOf();
         name = memStore.findByCandidateId(Integer.parseInt(id)).getName();
-        memStore.deleteCandidate(request.getParameter("id"));
+        memStore.deleteCandidate(request.getParameter("id"));*/
     }
 %>
 <div class="container pt-3">

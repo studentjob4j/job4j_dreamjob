@@ -8,6 +8,7 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ page import="ru.job4j.dream.store.MemStore" %>
 <%@ page import="ru.job4j.dream.model.Post" %>
+<%@ page import="ru.job4j.dream.store.DbStore" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -34,7 +35,8 @@
     String id = request.getParameter("id");
     Post post = new Post(0, "", "", null);
     if (id != null) {
-        post = MemStore.instOf().findById(Integer.parseInt(id));
+        post = DbStore.instOf().findPostById(Integer.parseInt(id));
+        //post = MemStore.instOf().findById(Integer.parseInt(id));
     }
 %>
 <div class="container pt-3">
