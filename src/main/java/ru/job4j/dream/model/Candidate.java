@@ -18,6 +18,10 @@ public class Candidate {
         this.name = name;
     }
 
+    public Candidate(String name) {
+        this.name = name;
+    }
+
     public Candidate() {
     }
 
@@ -54,7 +58,7 @@ public class Candidate {
     public String toString() {
         return "Candidate{" +
                 "id = " + id +
-                ", name = '" + name + '\'' +
+                ", name='" + name + '\'' +
                 '}';
     }
 }

@@ -23,6 +23,12 @@ public class Post {
         this.create = create;
     }
 
+    public Post(String name, String desc, LocalDate create) {
+        this.name = name;
+        this.desc = desc;
+        this.create = create;
+    }
+
     public Post() {
     }
 
