@@ -32,6 +32,32 @@
     <title>Работа мечты</title>
 </head>
 <body>
+
+<div class="row">
+    <ul class="nav">
+        <li class="nav-item">
+            <a class="nav-link" href="<%=request.getContextPath()%>/posts.do">Вакансии</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="<%=request.getContextPath()%>/candidates.do">Кандидаты</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="<%=request.getContextPath()%>/editPost.jsp">Добавить вакансию</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="<%=request.getContextPath()%>/editCandidate.jsp">Добавить соискателя</a>
+        </li>
+        <c:if test="${user == null}">
+            <li class="nav-item">
+                <a class="nav-link" href="<%=request.getContextPath()%>/login.jsp">Войти</a>
+            </li>
+        </c:if>
+        <li class="nav-item">
+            <a class="nav-link" href="<%=request.getContextPath()%>/logout.do"> <c:out value="${user.name}"/> | Выйти</a>
+        </li>
+    </ul>
+</div>
+
 <%
     String id = request.getParameter("id");
     String name = null;

@@ -32,8 +32,16 @@
     <servlet-name>AuthServlet</servlet-name>
     <servlet-class>ru.job4j.dream.servlet.AuthServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>LogOutServlet</servlet-name>
+    <servlet-class>ru.job4j.dream.servlet.LogOutServlet</servlet-class>
+  </servlet>
 
 
+<servlet-mapping>
+  <servlet-name>LogOutServlet</servlet-name>
+  <url-pattern>/logout.do</url-pattern>
+</servlet-mapping>
   <servlet-mapping>
     <servlet-name>DeleteServlet</servlet-name>
     <url-pattern>/delete</url-pattern>
