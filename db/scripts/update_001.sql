@@ -13,3 +13,12 @@ CREATE TABLE IF NOT EXISTS candidate (
     id SERIAL PRIMARY KEY,
     name TEXT
 );
+
+DROP TABLE IF EXISTS users;
+
+CREATE TABLE IF NOT EXISTS users(
+     id SERIAL PRIMARY KEY,
+     name TEXT,
+     email TEXT,
+     password TEXT
+);

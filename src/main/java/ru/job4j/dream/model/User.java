@@ -2,12 +2,34 @@ package ru.job4j.dream.model;
 
 import java.util.Objects;
 
+/**
+ * @author Shegai Evgenii
+ * @since 15.01.2022
+ * @version 1.0
+ */
+
 public class User {
 
     private int id;
     private String name;
     private String email;
     private String password;
+
+    public User(int id, String name, String email, String password) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+    }
+
+    public User(String name, String email, String password) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+    }
+
+    public User() {
+    }
 
     public int getId() {
         return id;

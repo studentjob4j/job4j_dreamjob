@@ -5,6 +5,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.job4j.dream.model.Candidate;
 import ru.job4j.dream.model.Post;
+import ru.job4j.dream.model.User;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.sql.*;
@@ -240,6 +242,119 @@ public class DbStore implements Store {
             result =  ps.execute();
         } catch (SQLException e) {
            LOG.error(e.getMessage(), e);
+        }
+        return result;
+    }
+
+    @Override
+    public User saveUser(User user) {
+       User result = new User();
+        if (user.getId() == 0) {
+            result = createUser(user);
+        } else {
+            updateUser(user);
+        }
+        return result;
+    }
+
+    private User createUser(User user) {
+        try (Connection cn = pool.getConnection();
+             PreparedStatement ps =  cn.prepareStatement("INSERT INTO users(name, email, password) VALUES (?, ?, ?)",
+                     PreparedStatement.RETURN_GENERATED_KEYS)
+        ) {
+            ps.setString(1, user.getName());
+            ps.setString(2, user.getEmail());
+            ps.setString(3, user.getPassword());
+            ps.execute();
+            try (ResultSet id = ps.getGeneratedKeys()) {
+                if (id.next()) {
+                    user.setId(id.getInt(1));
+                }
+            }
+        } catch (Exception e) {
+            LOG.error(e.getMessage(), e);
+        }
+        return user;
+    }
+
+    private void updateUser(User user) {
+        try (Connection cn = pool.getConnection()) {
+            PreparedStatement ps = cn.prepareStatement("UPDATE users SET name = ?, email = ?, password = ? WHERE id = ?;");
+            ps.setString(1, user.getName());
+            ps.setString(2, user.getEmail());
+            ps.setString(3, user.getPassword());
+            ps.setInt(4, user.getId());
+            int n = ps.executeUpdate();
+            System.out.println("Количество обновлённых строк: " + n);
+        } catch (SQLException e) {
+            LOG.error(e.getMessage(), e);
+        }
+    }
+
+    @Override
+    public User findUserById(int id) {
+       User user = new User();
+        try (Connection cn = pool.getConnection()) {
+            PreparedStatement ps =  cn.prepareStatement("select * from users where id = ?;");
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                user.setId(rs.getInt("id"));
+                user.setName(rs.getString("name"));
+                user.setEmail(rs.getString("email"));
+                user.setPassword(rs.getString("password"));
+            }
+        } catch (SQLException e) {
+            LOG.error(e.getMessage(), e);
+        }
+        return user;
+    }
+
+    @Override
+    public boolean deleteUser(String id) {
+        boolean result = true;
+        try ( Connection cn = pool.getConnection()) {
+            PreparedStatement ps = cn.prepareStatement("DELETE FROM users WHERE id = ?;");
+            ps.setInt(1, Integer.parseInt(id));
+            result =  ps.execute();
+        } catch (SQLException e) {
+            LOG.error(e.getMessage(), e);
+        }
+        return result;
+    }
+
+    @Override
+    public User findUserByEmail(String email) {
+        User user = new User();
+        try (Connection cn = pool.getConnection()) {
+            PreparedStatement ps =  cn.prepareStatement("select * from users where email = ?;");
+            ps.setString(1, email);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                user.setId(rs.getInt("id"));
+                user.setName(rs.getString("name"));
+                user.setEmail(rs.getString("email"));
+                user.setPassword(rs.getString("password"));
+            }
+        } catch (SQLException e) {
+            LOG.error(e.getMessage(), e);
+        }
+        return user;
+    }
+
+    @Override
+    public Collection<User> findAllUser() {
+        ArrayList<User> result = new ArrayList<>();
+        try (Connection cn = pool.getConnection()) {
+            PreparedStatement ps = cn.prepareStatement("SELECT * FROM users");
+            try(ResultSet set = ps.executeQuery()) {
+                while (set.next()) {
+                    result.add(new User(set.getInt(1), set.getString(2), set.getString(3),
+                            set.getString(4)));
+                }
+            }
+        } catch (SQLException e) {
+            LOG.error(e.getMessage(), e);
         }
         return result;
     }

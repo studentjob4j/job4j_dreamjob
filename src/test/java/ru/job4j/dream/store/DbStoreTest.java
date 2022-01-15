@@ -3,6 +3,7 @@ package ru.job4j.dream.store;
 import org.junit.Test;
 import ru.job4j.dream.model.Candidate;
 import ru.job4j.dream.model.Post;
+import ru.job4j.dream.model.User;
 import java.time.LocalDate;
 import java.util.List;
 import static org.hamcrest.core.Is.is;
@@ -47,5 +48,22 @@ public class DbStoreTest {
         assertThat(update.getName(), is("update"));
         assertThat(list.size(), is(2));
         assertFalse(res2);
+    }
+
+    @Test
+    public void whenTestUser() {
+        store.saveUser(new User("user", "email", "pass"));
+        User res = store.findUserById(1);
+        store.saveUser(new User(1, "update", "emailUpdate", "passUpdate"));
+        User res2 = store.findUserById(1);
+        store.saveUser(new User("user2", "email2", "pass2"));
+        User res3 = store.findUserByEmail("email2");
+        List<User> list = (List<User>) store.findAllUser();
+        boolean value = store.deleteUser("1");
+        assertThat(res.getName(), is("user"));
+        assertThat(res2.getName(), is("update"));
+        assertThat(res3.getName(), is("user2"));
+        assertThat(list.size(), is(2));
+        assertFalse(value);
     }
 }
