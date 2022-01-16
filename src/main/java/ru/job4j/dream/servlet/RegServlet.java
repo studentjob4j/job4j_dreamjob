@@ -10,30 +10,30 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-/**
- * @author Shegai Evgenii
- * @since 11.01.2022
- * @version 1.0
- */
+public class RegServlet extends HttpServlet {
 
-public class AuthServlet extends HttpServlet {
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        super.doGet(req, resp);
+    }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
+        Store store = DbStore.instOf();
         String name = req.getParameter("name");
         String email = req.getParameter("email");
         String password = req.getParameter("password");
-            HttpSession sc = req.getSession();
-            Store store = DbStore.instOf();
-            User user = store.findUserByEmail(email);
-            if (user != null && user.getPassword().equals(password)) {
-                sc.setAttribute("user", user);
-                resp.sendRedirect(req.getContextPath() + "/posts.do");
-            }
-         else {
-            req.setAttribute("error", "Не верный email или пароль");
+        User check = store.findUserByEmail(email);
+        if (check != null) {
+            req.setAttribute("error", "Пользователь с таким email уже существует");
             req.getRequestDispatcher("login.jsp").forward(req, resp);
+        } else {
+            User user = new User(name, email, password);
+            store.saveUser(user);
+            HttpSession session = req.getSession();
+            session.setAttribute("user", user);
+            resp.sendRedirect(req.getContextPath() + "/login.jsp");
         }
     }
 }

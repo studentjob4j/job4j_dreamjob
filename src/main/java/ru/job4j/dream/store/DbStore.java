@@ -6,15 +6,11 @@ import org.slf4j.LoggerFactory;
 import ru.job4j.dream.model.Candidate;
 import ru.job4j.dream.model.Post;
 import ru.job4j.dream.model.User;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.sql.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
 
 /**
  * @author Shegai Evgenii
@@ -325,16 +321,18 @@ public class DbStore implements Store {
 
     @Override
     public User findUserByEmail(String email) {
-        User user = new User();
+        User user = null;
         try (Connection cn = pool.getConnection()) {
             PreparedStatement ps =  cn.prepareStatement("select * from users where email = ?;");
             ps.setString(1, email);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
+                user = new User();
                 user.setId(rs.getInt("id"));
                 user.setName(rs.getString("name"));
                 user.setEmail(rs.getString("email"));
                 user.setPassword(rs.getString("password"));
+
             }
         } catch (SQLException e) {
             LOG.error(e.getMessage(), e);
@@ -357,5 +355,25 @@ public class DbStore implements Store {
             LOG.error(e.getMessage(), e);
         }
         return result;
+    }
+
+    @Override
+    public void cleanTable() {
+        try(Connection cn = pool.getConnection()) {
+            PreparedStatement ps = cn.prepareStatement("DELETE FROM post");
+            PreparedStatement ps2 =  cn.prepareStatement("ALTER SEQUENCE post_id_seq RESTART WITH 1");
+            PreparedStatement ps3 = cn.prepareStatement("DELETE FROM candidate");
+            PreparedStatement ps4 = cn.prepareStatement("ALTER SEQUENCE candidate_id_seq RESTART WITH 1");
+            PreparedStatement ps5 =   cn.prepareStatement("DELETE FROM users");
+            PreparedStatement ps6 =  cn.prepareStatement("ALTER SEQUENCE users_id_seq RESTART WITH 1");
+            ps.executeUpdate();
+            ps2.executeUpdate();
+            ps3.executeUpdate();
+            ps4.executeUpdate();
+            ps5.executeUpdate();
+            ps6.executeUpdate();
+        } catch (SQLException e) {
+        LOG.error(e.getMessage(), e);
+        }
     }
 }

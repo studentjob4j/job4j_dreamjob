@@ -3,6 +3,7 @@ package ru.job4j.dream.store;
 import ru.job4j.dream.model.Candidate;
 import ru.job4j.dream.model.Post;
 import ru.job4j.dream.model.User;
+
 import java.util.Collection;
 
 /**
@@ -38,5 +39,7 @@ public interface Store {
     boolean deleteUser(String id);
 
     User findUserByEmail(String email);
+
+    void cleanTable();
 
 }

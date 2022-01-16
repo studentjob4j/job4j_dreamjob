@@ -32,5 +32,6 @@ public class MainStore {
         store.findAllCandidates().stream().forEach(System.out::println);
         System.out.println(store.deleteCandidate(String.valueOf(candidate.getId())));
         System.out.println(store.deletePost(String.valueOf(candidate2.getId())));
+        store.cleanTable();
     }
 }
