@@ -7,6 +7,18 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>
+        function validate() {
+            let name = $('#exampleInputName').val();
+            let surname = $('#exampleInputSurname').val();
+            let sex = $('#exampleInputSex').val();
+            let desc = $('#exampleInputDesc').val();
+            if (name === "") alert("Заполните " + $("#exampleInputName").attr("title"));
+            if (surname === "") alert("Заполните " + $("#exampleInputSurname").attr("title"));
+            if (sex === "") alert("Заполните " + $("#exampleInputSex").attr("title"));
+            if (desc === "") alert("Заполните " + $("#exampleInputDesc").attr("title"));
+        }
+    </script>
 </head>
 <body>
 
@@ -17,25 +29,21 @@
 <form>
     <div class="form-group">
         <label for="exampleInputName">Имя</label>
-        <input type="email" class="form-control" id="exampleInputName" aria-describedby="emailHelp">
+        <input type="name" class="form-control" id="exampleInputName"  title="Имя">
     </div>
     <div class="form-group">
         <label for="exampleInputSurname">Фамилия</label>
-        <input type="password" class="form-control" id="exampleInputSurname">
+        <input type="surname" class="form-control" id="exampleInputSurname" title="Фамилию">
     </div>
     <div class="form-group">
         <label for="exampleInputSex">Пол</label>
-        <input type="password" class="form-control" id="exampleInputSex">
+        <input type="sex" class="form-control" id="exampleInputSex" title="Пол">
     </div>
     <div class="form-group">
         <label for="exampleInputDesc">Описание</label>
-        <input type="password" class="form-control" id="exampleInputDesc">
+        <input type="desc" class="form-control" id="exampleInputDesc" title="Описание">
     </div>
-    <div class="form-group form-check">
-        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-        <label class="form-check-label" for="exampleCheck1">Check me out</label>
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="button" class="btn btn-default" onclick="return validate();">Submit</button>
 </form>
 <p></p>
 
