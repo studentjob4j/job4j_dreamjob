@@ -64,6 +64,7 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
         </profile>
+
         <profile>
             <id>production</id>
             <properties>
@@ -136,7 +137,13 @@
           <version>1.7.30</version>
       </dependency>
 
+      <!-- https://mvnrepository.com/artifact/org.mockito/mockito-core -->
+      <dependency>
+          <groupId>org.mockito</groupId>
+          <artifactId>mockito-core</artifactId>
+          <version>4.0.0</version>
+          <scope>test</scope>
+      </dependency>
 
-
-    </dependencies>
+  </dependencies>
 </project>
