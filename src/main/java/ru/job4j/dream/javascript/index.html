@@ -18,13 +18,26 @@
             if (sex === "") alert("Заполните " + $("#exampleInputSex").attr("title"));
             if (desc === "") alert("Заполните " + $("#exampleInputDesc").attr("title"));
         }
+
+        function addRow() {
+            let name = $('#exampleInputName').val();
+            let surname = $('#exampleInputSurname').val();
+            let sex = $('#exampleInputSex').val();
+            let desc = $('#exampleInputDesc').val();
+            $('#table tr:last').after('<tr>' +
+                '<td>' + name + '</td>' +
+                '<td>' + surname + '</td>' +
+                '<td>' + sex + '</td>' +
+                '<td>' + desc + '</td>' +
+                '</tr>');
+
+        }
     </script>
 </head>
 <body>
 
 <div class="container-fluid">
     <h3>My First Bootstrap Page</h3>
-    <p>This is some text.</p>
 </div>
 <form>
     <div class="form-group">
@@ -47,36 +60,39 @@
 </form>
 <p></p>
 
-<table class="table">
+<button type="button" class="btn btn-default" onclick="addRow()">Добавить строку в таблицу</button>
+<br>
+<br>
+
+<table class="table" id="table">
     <thead>
     <tr>
-        <th scope="col">#</th>
-        <th scope="col">First</th>
-        <th scope="col">Last</th>
-        <th scope="col">Handle</th>
+        <th scope="col">Имя</th>
+        <th scope="col">Фамилия</th>
+        <th scope="col">Пол</th>
+        <th scope="col">Описание</th>
     </tr>
     </thead>
     <tbody>
     <tr>
-        <th scope="row">1</th>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
+        <th scope="row">Жанна</th>
+        <td>Маркова</td>
+        <td>Женский</td>
+        <td>Продавец</td>
     </tr>
     <tr>
-        <th scope="row">2</th>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td>@fat</td>
+        <th scope="row">Сергей</th>
+        <td>Иванов</td>
+        <td>Мужской</td>
+        <td>Водитель</td>
     </tr>
     <tr>
-        <th scope="row">3</th>
-        <td>Larry</td>
-        <td>the Bird</td>
-        <td>@twitter</td>
+        <th scope="row">Оксана</th>
+        <td>Петрова</td>
+        <td>Женский</td>
+        <td>Бухгалтер</td>
     </tr>
     </tbody>
 </table>
-
 </body>
 </html>
